@@ -1,0 +1,7 @@
+*.h
+helloEnv/
+.idea/inspectionProfiles/profiles_settings.xml
+.idea/workspace.xml
+.idea/modules.xml
+.idea/misc.xml
+.idea/FlaskHello.iml
