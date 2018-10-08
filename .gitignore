@@ -5,3 +5,4 @@ helloEnv/
 .idea/modules.xml
 .idea/misc.xml
 .idea/FlaskHello.iml
+.idea/
