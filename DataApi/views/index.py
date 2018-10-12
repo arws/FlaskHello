@@ -47,22 +47,17 @@ def getIndexName():
 
 @app.route('/data/index/single/<index_name>', methods=['GET'])
 def getIndexData(index_name):
-    data = []
-    td = pd.read_csv(os.path.join(Settings.tradingDay_url, 'tradingDay.csv'))
-    td.index = pd.to_datetime(td['date'], format='%Y%m%d')
-    td = td['20050101': datetime.datetime.now().strftime('%Y%m%d')]
+    d = pd.date_range(start='19890101', end=datetime.datetime.now().strftime('%Y%m%d'))
 
     file_name = os.path.join(Settings.index_daybar_url, IndexUtil.nameTocode(index_name) + '.csv')
-    print(file_name)
     df = pd.read_csv(file_name, index_col=['Date'], usecols=['Date', 'Close'], parse_dates=True)
+    df = df.reindex(d)
     df = df['20050101': datetime.datetime.now().strftime('%Y%m%d')]
-    td[index_name] = df['Close']
-    del td['date']
-    td.fillna(method='ffill', inplace=True)
-    td.fillna(method='bfill', inplace=True)
-    data.append({'name': index_name, 'x': [s.strftime('%Y%m%d') for s in td.index], 'y': [round(x, 4) for x in td[index_name].tolist()]})
 
-    return jsonify({'data': data})
+    df.fillna(method='ffill', inplace=True)
+    df.fillna(method='bfill', inplace=True)
+
+    return jsonify({'name': index_name, 'x': [s.strftime('%Y%m%d') for s in df.index], 'y': [round(x, 4) for x in df['Close'].tolist()]})
 
 if __name__ == '__main__':
     pass

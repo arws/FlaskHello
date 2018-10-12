@@ -10,6 +10,10 @@
 
 
 class Settings(object):
+    stock_daybar_url = "D:\\data\\h5data\\stock\\daybar\\byStock"
+
+    universe = 'D:\\data\\static\\stock\\universe.csv'
+
     index_daybar_url = 'D:\\data\\h5data\\index\\daybar\\byIndex'
 
     macro_url = 'D:\\SourceCode\\python\\FlaskDataApi\\'
@@ -17,5 +21,7 @@ class Settings(object):
     pig_url = 'D:\\SourceCode\\python\\FlaskDataApi\\'
 
     tradingDay_url = 'D:\\SourceCode\\python\\FlaskDataApi\\'
+
+
 if __name__ == '__main__':
     pass

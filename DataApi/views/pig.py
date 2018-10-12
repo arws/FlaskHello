@@ -33,30 +33,25 @@ def getPig():
 @app.route('/data/pig/name', methods=['GET'])
 def getPigName():
     data = []
-    df = pd.read_excel(os.path.join(Settings.macro_url, 'pig.xls'))
-    del df['Date']
+    df = pd.read_excel(os.path.join(Settings.macro_url, 'pig.xlsx'))
     for col in df.columns.values:
-        data.append({'value': col})
+        data.append({'value': col, 'label': col})
     return jsonify({'data': data})
 
 
 @app.route('/data/pig/single/<index_name>', methods=['GET'])
 def getSinglePig(index_name):
-    data = []
-    td = pd.read_csv(os.path.join(Settings.tradingDay_url, 'tradingDay.csv'))
-    td.index = pd.to_datetime(td['date'], format='%Y%m%d')
-    td = td['20050101': datetime.datetime.now().strftime('%Y%m%d')]
+    d = pd.date_range(start='20050101', end=datetime.datetime.now().strftime('%Y%m%d'))
 
-    df = pd.read_excel(os.path.join(Settings.pig_url, 'pig.xls'))
-    df.index = pd.to_datetime(df['Date'])
-    df = df['20050101': datetime.datetime.now().strftime('%Y%m%d')]
+    df = pd.read_excel(os.path.join(Settings.pig_url, 'pig.xlsx'))
+    # df.index = df['Date']
+    df = df.reindex(d)
 
-    td[index_name] = df[index_name]
-    del td['date']
-    td.fillna(method='ffill', inplace=True)
-    td.fillna(method='bfill', inplace=True)
-    data.append({'name': index_name, 'x': [s.strftime('%Y%m%d') for s in td.index], 'y': [round(x, 4) for x in td[index_name].tolist()]})
-    return jsonify({'data': data})
+    df.fillna(method='ffill', inplace=True)
+    df.fillna(method='bfill', inplace=True)
+
+    # del df['Date']
+    return jsonify({'name': index_name, 'x': [s.strftime('%Y%m%d') for s in df.index], 'y': [round(x, 4) for x in df[index_name].tolist()]})
 
 
 if __name__ == '__main__':

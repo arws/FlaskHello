@@ -15,6 +15,7 @@ app = Flask(__name__)
 from .views import index
 from .views import macro
 from .views import pig
+from .views import stock
 
 if __name__ == '__main__':
     pass

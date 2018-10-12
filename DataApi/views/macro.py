@@ -24,25 +24,23 @@ def getMacro():
     df = pd.read_excel(os.path.join(Settings.macro_url, 'macro-quarter.xlsx'))
     x = [s.strftime('%Y%m') for s in df.index]
     for col in df.columns.values:
-        value = [round(x, 4) for x in df[col].values.tolist()]
+        value = [round(x, 6) for x in df[col].values.tolist()]
         data.append({'name': col, 'x': x, 'y': value, 'active': True})
     return jsonify({'data': data})
 
 
 @app.route('/data/macro/quarter/<index_name>', methods=['GET'])
 def getSingleMacro(index_name):
-    data = []
-    td = pd.read_csv(os.path.join(Settings.tradingDay_url, 'tradingDay.csv'))
-    td.index = pd.to_datetime(td['date'], format='%Y%m%d')
-    td = td['20050101': datetime.datetime.now().strftime('%Y%m%d')]
+
+    d = pd.date_range(start='20050101', end=datetime.datetime.now().strftime('%Y%m%d'))
+
     df = pd.read_excel(os.path.join(Settings.macro_url, 'macro-quarter.xlsx'))
-    df = df['20050101': datetime.datetime.now().strftime('%Y%m%d')]
-    td[index_name] = df[index_name]
-    del td['date']
-    td.fillna(method='ffill', inplace=True)
-    td.fillna(method='bfill', inplace=True)
-    data.append({'name': index_name, 'x': [s.strftime('%Y%m%d') for s in td.index], 'y': [round(x, 4) for x in td[index_name].tolist()]})
-    return jsonify({'data': data})
+    df = df.reindex(d)
+
+    df.fillna(method='ffill', inplace=True)
+    df.fillna(method='bfill', inplace=True)
+
+    return jsonify({'name': index_name, 'x': [s.strftime('%Y%m%d') for s in df.index], 'y': [round(x, 6) for x in df[index_name].tolist()]})
 
 
 @app.route('/data/macro/name', methods=['GET'])
@@ -50,7 +48,7 @@ def getMacroName():
     data = []
     df = pd.read_excel(os.path.join(Settings.macro_url, 'macro-quarter.xlsx'))
     for col in df.columns.values:
-        data.append({'value': col})
+        data.append({'value': col, 'label': col})
     return jsonify({'data': data})
 
 
