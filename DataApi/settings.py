@@ -22,6 +22,6 @@ class Settings(object):
 
     tradingDay_url = 'D:\\SourceCode\\python\\FlaskDataApi\\'
 
-
+    stock_dividend_url = 'D:\\data\\static\\stock\\Tusharedividend'
 if __name__ == '__main__':
     pass
