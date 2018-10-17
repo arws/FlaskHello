@@ -16,12 +16,11 @@ class Settings(object):
 
     index_daybar_url = 'D:\\data\\h5data\\index\\daybar\\byIndex'
 
-    macro_url = 'D:\\SourceCode\\python\\FlaskDataApi\\'
-
-    pig_url = 'D:\\SourceCode\\python\\FlaskDataApi\\'
-
     tradingDay_url = 'D:\\SourceCode\\python\\FlaskDataApi\\'
 
     stock_dividend_url = 'D:\\data\\static\\stock\\Tusharedividend'
+
+    data_url = 'D:\\SourceCode\\python\\FlaskDataApi\\data'
+
 if __name__ == '__main__':
     pass

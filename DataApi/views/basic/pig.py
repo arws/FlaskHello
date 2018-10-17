@@ -7,20 +7,22 @@
 @file: pig.py
 @time: 2018/10/11 14:29
 """
-import datetime
-from flask import jsonify
-
-from ..settings import Settings
-from ..app import app
-import pandas as pd
 import os
 
+import datetime
+import pandas as pd
 
-@app.route('/data/pig', methods=['GET'])
+from flask import jsonify
+
+from ...app import app
+from DataApi.settings import Settings
+
+
+@app.route('/data/basic/pig', methods=['GET'])
 def getPig():
     data = []
 
-    df = pd.read_excel(os.path.join(Settings.pig_url, 'pig.xlsx'), index_col=[0])
+    df = pd.read_excel(os.path.join(Settings.data_url, 'basic', 'pig.xls'), index_col=[0])
     df.fillna(method='ffill', inplace=True)
     df.fillna(method='bfill', inplace=True)
     x = [s.strftime('%Y%m%d') for s in df.index]
@@ -30,20 +32,20 @@ def getPig():
     return jsonify({'data': data})
 
 
-@app.route('/data/pig/name', methods=['GET'])
+@app.route('/data/basic/pig/name', methods=['GET'])
 def getPigName():
     data = []
-    df = pd.read_excel(os.path.join(Settings.macro_url, 'pig.xlsx'))
+    df = pd.read_excel(os.path.join(Settings.data_url, 'basic', 'pig.xls'))
     for col in df.columns.values:
         data.append({'value': col, 'label': col})
-    return jsonify({'data': data})
+    return jsonify({'data': data, 'Category': '猪周期'})
 
 
-@app.route('/data/pig/single/<index_name>', methods=['GET'])
+@app.route('/data/basic/pig/single/<index_name>', methods=['GET'])
 def getSinglePig(index_name):
     d = pd.date_range(start='20050101', end=datetime.datetime.now().strftime('%Y%m%d'))
 
-    df = pd.read_excel(os.path.join(Settings.pig_url, 'pig.xlsx'))
+    df = pd.read_excel(os.path.join(Settings.data_url, 'basic', 'pig.xls'))
     # df.index = df['Date']
     df = df.reindex(d)
 
