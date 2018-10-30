@@ -14,24 +14,24 @@ import pandas as pd
 
 from flask import jsonify
 
-from ....app import app
+from DataApi.app import app
 from DataApi.settings import Settings
 
 
-@app.route('/data/macro/america/financialmarket/name', methods=['GET'])
+@app.route('/data/financialmarket/america/name', methods=['GET'])
 def getAmericaFinancialmarketName():
     data = []
-    df = pd.read_excel(os.path.join(Settings.data_url, 'macro', 'america', 'financialmarket.xls'))
+    df = pd.read_excel(os.path.join(Settings.data_url, 'financialmarket', 'financialmarketus.xls'))
     for col in df.columns.values:
         data.append({'value': col, 'label': col})
-    return jsonify({'data': data, 'Category': '美国宏观', 'SubCategory': '金融市场'})
+    return jsonify({'data': data, 'Category': '美国金融市场'})
 
 
-@app.route('/data/macro/america/financialmarket/single/<name>', methods=['GET'])
+@app.route('/data/financialmarket/america/single/<name>', methods=['GET'])
 def getSingleAmericaFinancialmarket(name):
     d = pd.date_range(start='20050101', end=datetime.datetime.now().strftime('%Y%m%d'))
 
-    df = pd.read_excel(os.path.join(Settings.data_url, 'macro', 'america', 'financialmarket.xls'))
+    df = pd.read_excel(os.path.join(Settings.data_url, 'financialmarket', 'financialmarketus.xls'))
     df = df.loc['20050101':]
     # df.index = df['Date']
     df = df.reindex(d)

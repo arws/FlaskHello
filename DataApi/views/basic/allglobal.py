@@ -14,7 +14,7 @@ import pandas as pd
 
 from flask import jsonify
 
-from ...app import app
+from DataApi.app import app
 from DataApi.settings import Settings
 
 

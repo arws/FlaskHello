@@ -25,7 +25,7 @@ def getExchangeName():
     df = pd.read_excel(os.path.join(Settings.data_url, 'financialMarket', 'exchange.xls'))
     for col in df.columns.values:
         data.append({'value': col, 'label': col})
-    return jsonify({'data': data, 'Category': '金融市场', 'SubCategory': '外汇'})
+    return jsonify({'data': data, 'Category': '中国金融市场', 'SubCategory': '外汇'})
 
 
 @app.route('/data/financialmarket/exchange/single/<name>', methods=['GET'])

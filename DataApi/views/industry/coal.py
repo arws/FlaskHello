@@ -14,24 +14,24 @@ import pandas as pd
 
 from flask import jsonify
 
-from ...app import app
+from DataApi.app import app
 from DataApi.settings import Settings
 
 
-@app.route('/data/basic/coal/name', methods=['GET'])
+@app.route('/data/industry/coal/name', methods=['GET'])
 def getCoalName():
     data = []
-    df = pd.read_excel(os.path.join(Settings.data_url, 'basic', 'coal.xls'))
+    df = pd.read_excel(os.path.join(Settings.data_url, 'industry', 'coal.xls'))
     for col in df.columns.values:
         data.append({'value': col, 'label': col})
     return jsonify({'data': data, 'Category': '煤炭'})
 
 
-@app.route('/data/basic/coal/single/<index_name>', methods=['GET'])
+@app.route('/data/industry/coal/single/<index_name>', methods=['GET'])
 def getSingleCoal(index_name):
     d = pd.date_range(start='20050101', end=datetime.datetime.now().strftime('%Y%m%d'))
 
-    df = pd.read_excel(os.path.join(Settings.data_url, 'basic', 'coal.xls'))
+    df = pd.read_excel(os.path.join(Settings.data_url, 'industry', 'coal.xls'))
     # df.index = df['Date']
     df = df.reindex(d)
 

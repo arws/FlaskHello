@@ -24,7 +24,7 @@ def getBondName():
     df = pd.read_excel(os.path.join(Settings.data_url, 'financialMarket', 'bond.xls'))
     for col in df.columns.values:
         data.append({'value': col, 'label': col})
-    return jsonify({'data': data, 'Category': '金融市场', 'SubCategory': '债券'})
+    return jsonify({'data': data, 'Category': '中国金融市场', 'SubCategory': '债券'})
 
 
 @app.route('/data/financialmarket/bond/single/<name>', methods=['GET'])

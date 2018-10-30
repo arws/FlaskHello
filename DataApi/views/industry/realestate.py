@@ -14,24 +14,24 @@ import pandas as pd
 
 from flask import jsonify
 
-from ...app import app
+from DataApi.app import app
 from DataApi.settings import Settings
 
 
-@app.route('/data/basic/realestate/name', methods=['GET'])
+@app.route('/data/industry/realestate/name', methods=['GET'])
 def getRealestateName():
     data = []
-    df = pd.read_excel(os.path.join(Settings.data_url, 'basic', 'realestate.xls'))
+    df = pd.read_excel(os.path.join(Settings.data_url, 'industry', 'realestate.xls'))
     for col in df.columns.values:
         data.append({'value': col, 'label': col})
     return jsonify({'data': data, 'Category': '房地产'})
 
 
-@app.route('/data/basic/realestate/single/<index_name>', methods=['GET'])
+@app.route('/data/industry/realestate/single/<index_name>', methods=['GET'])
 def getSingleRealestate(index_name):
     d = pd.date_range(start='20050101', end=datetime.datetime.now().strftime('%Y%m%d'))
 
-    df = pd.read_excel(os.path.join(Settings.data_url, 'basic', 'realestate.xls'))
+    df = pd.read_excel(os.path.join(Settings.data_url, 'industry', 'realestate.xls'))
     # df.index = df['Date']
     df = df.reindex(d)
 

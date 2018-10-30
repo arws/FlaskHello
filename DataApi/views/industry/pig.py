@@ -14,15 +14,15 @@ import pandas as pd
 
 from flask import jsonify
 
-from ...app import app
+from DataApi.app import app
 from DataApi.settings import Settings
 
 
-@app.route('/data/basic/pig', methods=['GET'])
+@app.route('/data/industry/pig', methods=['GET'])
 def getPig():
     data = []
 
-    df = pd.read_excel(os.path.join(Settings.data_url, 'basic', 'pig.xls'), index_col=[0])
+    df = pd.read_excel(os.path.join(Settings.data_url, 'industry', 'pig.xls'), index_col=[0])
     df.fillna(method='ffill', inplace=True)
     df.fillna(method='bfill', inplace=True)
     x = [s.strftime('%Y%m%d') for s in df.index]
@@ -32,20 +32,20 @@ def getPig():
     return jsonify({'data': data})
 
 
-@app.route('/data/basic/pig/name', methods=['GET'])
+@app.route('/data/industry/pig/name', methods=['GET'])
 def getPigName():
     data = []
-    df = pd.read_excel(os.path.join(Settings.data_url, 'basic', 'pig.xls'))
+    df = pd.read_excel(os.path.join(Settings.data_url, 'industry', 'pig.xls'))
     for col in df.columns.values:
         data.append({'value': col, 'label': col})
     return jsonify({'data': data, 'Category': '猪周期'})
 
 
-@app.route('/data/basic/pig/single/<index_name>', methods=['GET'])
+@app.route('/data/industry/pig/single/<index_name>', methods=['GET'])
 def getSinglePig(index_name):
     d = pd.date_range(start='20050101', end=datetime.datetime.now().strftime('%Y%m%d'))
 
-    df = pd.read_excel(os.path.join(Settings.data_url, 'basic', 'pig.xls'))
+    df = pd.read_excel(os.path.join(Settings.data_url, 'industry', 'pig.xls'))
     # df.index = df['Date']
     df = df.reindex(d)
 

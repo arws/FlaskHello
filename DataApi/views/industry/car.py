@@ -14,11 +14,11 @@ import pandas as pd
 
 from flask import jsonify
 
-from ...app import app
+from DataApi.app import app
 from DataApi.settings import Settings
 
 
-@app.route('/data/basic/car/name', methods=['GET'])
+@app.route('/data/industry/car/name', methods=['GET'])
 def getCarName():
     data = []
     df = pd.read_excel(os.path.join(Settings.data_url, 'industry', 'car.xls'))
@@ -27,7 +27,7 @@ def getCarName():
     return jsonify({'data': data, 'Category': '汽车'})
 
 
-@app.route('/data/basic/car/single/<index_name>', methods=['GET'])
+@app.route('/data/industry/car/single/<index_name>', methods=['GET'])
 def getSingleCar(index_name):
     d = pd.date_range(start='20050101', end=datetime.datetime.now().strftime('%Y%m%d'))
 
