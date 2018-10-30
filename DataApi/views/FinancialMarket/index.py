@@ -22,7 +22,7 @@ def getIndexList():
     data = []
     d = pd.date_range(start='20050101', end=datetime.datetime.now().strftime('%Y%m%d'))
     list = request.args.getlist(key='codes')
-    df = pd.read_excel(os.path.join(Settings.data_url, 'financialMarket', 'index.xls'))
+    df = pd.read_excel(os.path.join(Settings.data_url, 'financialmarket', 'index.xls'))
     df = df.reindex(d)
 
     df.fillna(method='ffill', inplace=True)
@@ -37,7 +37,7 @@ def getIndexList():
 @app.route('/data/financialmarket/index/name', methods=['GET'])
 def getIndexName():
     data = []
-    df = pd.read_excel(os.path.join(Settings.data_url, 'financialMarket', 'index.xls'))
+    df = pd.read_excel(os.path.join(Settings.data_url, 'financialmarket', 'index.xls'))
     for col in df.columns.values:
         data.append({'value': col})
     return jsonify({'data': data})
@@ -47,7 +47,7 @@ def getIndexName():
 def getIndexData(index_name):
     d = pd.date_range(start='20050101', end=datetime.datetime.now().strftime('%Y%m%d'))
 
-    df = pd.read_excel(os.path.join(Settings.data_url, 'financialMarket', 'index.xls'))
+    df = pd.read_excel(os.path.join(Settings.data_url, 'financialmarket', 'index.xls'))
     df = df.reindex(d)
 
     df.fillna(method='ffill', inplace=True)

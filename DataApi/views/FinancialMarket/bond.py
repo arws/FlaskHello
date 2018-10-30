@@ -21,7 +21,7 @@ from DataApi.settings import Settings
 @app.route('/data/financialmarket/bond/name', methods=['GET'])
 def getBondName():
     data = []
-    df = pd.read_excel(os.path.join(Settings.data_url, 'financialMarket', 'bond.xls'))
+    df = pd.read_excel(os.path.join(Settings.data_url, 'financialmarket', 'bond.xls'))
     for col in df.columns.values:
         data.append({'value': col, 'label': col})
     return jsonify({'data': data, 'Category': '中国金融市场', 'SubCategory': '债券'})
@@ -31,7 +31,7 @@ def getBondName():
 def getSingleBond(name):
     d = pd.date_range(start='20050101', end=datetime.datetime.now().strftime('%Y%m%d'))
 
-    df = pd.read_excel(os.path.join(Settings.data_url, 'financialMarket', 'bond.xls'))
+    df = pd.read_excel(os.path.join(Settings.data_url, 'financialmarket', 'bond.xls'))
     # df.index = df['Date']
     df = df.reindex(d)
 

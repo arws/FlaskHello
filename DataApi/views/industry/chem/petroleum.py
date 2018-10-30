@@ -21,7 +21,7 @@ from DataApi.settings import Settings
 @app.route('/data/industry/chem/petroleum/name', methods=['GET'])
 def getPetroleumName():
     data = []
-    df = pd.read_excel(os.path.join(Settings.data_url, 'industry\\chem', 'petroleum.xls'))
+    df = pd.read_excel(os.path.join(Settings.data_url, 'industry/chem', 'petroleum.xls'))
     for col in df.columns.values:
         data.append({'value': col, 'label': col})
     return jsonify({'data': data, 'Category': '化工', 'SubCategory': '石油化工'})
@@ -31,7 +31,7 @@ def getPetroleumName():
 def getSinglePetroleum(index_name):
     d = pd.date_range(start='20050101', end=datetime.datetime.now().strftime('%Y%m%d'))
 
-    df = pd.read_excel(os.path.join(Settings.data_url, 'industry\\chem', 'petroleum.xls'))
+    df = pd.read_excel(os.path.join(Settings.data_url, 'industry/chem', 'petroleum.xls'))
     # df.index = df['Date']
     df = df.reindex(d)
 

@@ -14,10 +14,6 @@ class Settings(object):
 
     universe = 'D:\\data\\static\\stock\\universe.csv'
 
-    index_daybar_url = 'D:\\data\\h5data\\index\\daybar\\byIndex'
-
-    tradingDay_url = 'D:\\SourceCode\\python\\FlaskDataApi\\'
-
     stock_dividend_url = 'D:\\data\\static\\stock\\Tusharedividend'
 
     data_url = 'D:\\SourceCode\\python\\FlaskDataApi\\data'

@@ -22,7 +22,7 @@ from DataApi.settings import Settings
 @app.route('/data/financialmarket/exchange/name', methods=['GET'])
 def getExchangeName():
     data = []
-    df = pd.read_excel(os.path.join(Settings.data_url, 'financialMarket', 'exchange.xls'))
+    df = pd.read_excel(os.path.join(Settings.data_url, 'financialmarket', 'exchange.xls'))
     for col in df.columns.values:
         data.append({'value': col, 'label': col})
     return jsonify({'data': data, 'Category': '中国金融市场', 'SubCategory': '外汇'})
@@ -32,7 +32,7 @@ def getExchangeName():
 def getSingleExchange(name):
     d = pd.date_range(start='20050101', end=datetime.datetime.now().strftime('%Y%m%d'))
 
-    df = pd.read_excel(os.path.join(Settings.data_url, 'financialMarket', 'exchange.xls'))
+    df = pd.read_excel(os.path.join(Settings.data_url, 'financialmarket', 'exchange.xls'))
     # df.index = df['Date']
     df = df.reindex(d)
 
