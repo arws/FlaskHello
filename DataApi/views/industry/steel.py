@@ -4,8 +4,8 @@
 """
 @author: zhangmeng
 @contact: arws@qq.com
-@file: domesticcommdity.py
-@time: 2018/10/19 14:49
+@file: steel.py
+@time: 2018/10/22 14:30
 """
 import os
 
@@ -18,20 +18,20 @@ from ...app import app
 from DataApi.settings import Settings
 
 
-@app.route('/data/commodity/domestic/name', methods=['GET'])
-def getDomesticName():
+@app.route('/data/basic/steel/name', methods=['GET'])
+def getSteelName():
     data = []
-    df = pd.read_excel(os.path.join(Settings.data_url, 'commodity', 'domestic.xls'))
+    df = pd.read_excel(os.path.join(Settings.data_url, 'basic', 'steel.xls'))
     for col in df.columns.values:
         data.append({'value': col, 'label': col})
-    return jsonify({'data': data, 'Category': '大宗商品', 'SubCategory': '国内大宗'})
+    return jsonify({'data': data, 'Category': '钢铁'})
 
 
-@app.route('/data/commodity/domestic/single/<index_name>', methods=['GET'])
-def getSingleDomestic(index_name):
+@app.route('/data/basic/steel/single/<index_name>', methods=['GET'])
+def getSingleSteel(index_name):
     d = pd.date_range(start='20050101', end=datetime.datetime.now().strftime('%Y%m%d'))
 
-    df = pd.read_excel(os.path.join(Settings.data_url, 'commodity', 'domestic.xls'))
+    df = pd.read_excel(os.path.join(Settings.data_url, 'basic', 'steel.xls'))
     # df.index = df['Date']
     df = df.reindex(d)
 
