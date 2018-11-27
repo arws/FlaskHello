@@ -14,7 +14,7 @@ class Settings(object):
 
     universe = 'D:\\data\\static\\stock\\universe.csv'
 
-    stock_dividend_url = 'D:\\data\\static\\stock\\Tusharedividend'
+    stock_dividend_url = 'D:\\data\\static\\stock\\dividend\\tushare'
 
     data_url = 'D:\\SourceCode\\python\\FlaskDataApi\\data'
 

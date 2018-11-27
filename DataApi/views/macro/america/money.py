@@ -14,6 +14,7 @@ import pandas as pd
 
 from flask import jsonify
 
+from DataApi.Util import Const
 from ....app import app
 from DataApi.settings import Settings
 
@@ -29,10 +30,10 @@ def getAmericaMoneyName():
 
 @app.route('/data/macro/america/money/single/<name>', methods=['GET'])
 def getSingleAmericaMoney(name):
-    d = pd.date_range(start='20050101', end=datetime.datetime.now().strftime('%Y%m%d'))
+    d = pd.date_range(start=Const.START, end=datetime.datetime.now().strftime('%Y%m%d'))
 
     df = pd.read_excel(os.path.join(Settings.data_url, 'macro', 'america', 'money.xls'))
-    df = df.loc['20050101':]
+    df = df.loc[Const.START:]
     # df.index = df['Date']
     df = df.reindex(d)
 

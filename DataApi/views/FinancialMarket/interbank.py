@@ -14,6 +14,7 @@ import pandas as pd
 
 from flask import jsonify
 
+from DataApi.Util import Const
 from ...app import app
 from DataApi.settings import Settings
 
@@ -29,7 +30,7 @@ def getInterbankName():
 
 @app.route('/data/financialmarket/interbank/single/<name>', methods=['GET'])
 def getSingleInterbank(name):
-    d = pd.date_range(start='20050101', end=datetime.datetime.now().strftime('%Y%m%d'))
+    d = pd.date_range(start=Const.START, end=datetime.datetime.now().strftime('%Y%m%d'))
 
     df = pd.read_excel(os.path.join(Settings.data_url, 'financialmarket', 'interbank.xls'))
     # df.index = df['Date']

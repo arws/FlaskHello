@@ -4,8 +4,8 @@
 """
 @author: zhangmeng
 @contact: arws@qq.com
-@file: rubber.py
-@time: 2018/10/26 14:20
+@file: buildmaterial.py
+@time: 2018/10/31 14:49
 """
 import os
 
@@ -19,20 +19,20 @@ from DataApi.app import app
 from DataApi.settings import Settings
 
 
-@app.route('/data/industry/chem/rubber/name', methods=['GET'])
-def getRubberName():
+@app.route('/data/industry/buildmaterial/name', methods=['GET'])
+def getBuildMaterialName():
     data = []
-    df = pd.read_excel(os.path.join(Settings.data_url, 'industry/chem', 'rubber.xls'))
+    df = pd.read_excel(os.path.join(Settings.data_url, 'industry', 'buildmaterial.xls'))
     for col in df.columns.values:
         data.append({'value': col, 'label': col})
-    return jsonify({'data': data, 'Category': '化工', 'SubCategory': '橡胶'})
+    return jsonify({'data': data, 'Category': '建材'})
 
 
-@app.route('/data/industry/chem/rubber/single/<index_name>', methods=['GET'])
-def getSingleRubber(index_name):
+@app.route('/data/industry/buildmaterial/single/<index_name>', methods=['GET'])
+def getSingleBuildMaterial(index_name):
     d = pd.date_range(start=Const.START, end=datetime.datetime.now().strftime('%Y%m%d'))
 
-    df = pd.read_excel(os.path.join(Settings.data_url, 'industry/chem', 'rubber.xls'))
+    df = pd.read_excel(os.path.join(Settings.data_url, 'industry', 'buildmaterial.xls'))
     # df.index = df['Date']
     df = df.reindex(d)
 
@@ -41,7 +41,5 @@ def getSingleRubber(index_name):
 
     # del df['Date']
     return jsonify({'name': index_name, 'x': [s.strftime('%Y%m%d') for s in df.index], 'y': [round(x, 4) for x in df[index_name].tolist()]})
-
-
 if __name__ == '__main__':
     pass

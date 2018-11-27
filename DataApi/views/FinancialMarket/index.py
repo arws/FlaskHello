@@ -13,6 +13,7 @@ import os
 
 from flask import jsonify, request
 
+from DataApi.Util import Const
 from DataApi.settings import Settings
 from DataApi.app import app
 
@@ -20,7 +21,7 @@ from DataApi.app import app
 @app.route('/data/financialmarket/index/indexlist', methods=['GET', 'POST'])
 def getIndexList():
     data = []
-    d = pd.date_range(start='20050101', end=datetime.datetime.now().strftime('%Y%m%d'))
+    d = pd.date_range(start=Const.START, end=datetime.datetime.now().strftime('%Y%m%d'))
     list = request.args.getlist(key='codes')
     df = pd.read_excel(os.path.join(Settings.data_url, 'financialmarket', 'index.xls'))
     df = df.reindex(d)
@@ -45,7 +46,7 @@ def getIndexName():
 
 @app.route('/data/financialmarket/index/single/<index_name>', methods=['GET'])
 def getIndexData(index_name):
-    d = pd.date_range(start='20050101', end=datetime.datetime.now().strftime('%Y%m%d'))
+    d = pd.date_range(start=Const.START, end=datetime.datetime.now().strftime('%Y%m%d'))
 
     df = pd.read_excel(os.path.join(Settings.data_url, 'financialmarket', 'index.xls'))
     df = df.reindex(d)

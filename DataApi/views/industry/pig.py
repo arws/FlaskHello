@@ -14,6 +14,7 @@ import pandas as pd
 
 from flask import jsonify
 
+from DataApi.Util import Const
 from DataApi.app import app
 from DataApi.settings import Settings
 
@@ -43,7 +44,7 @@ def getPigName():
 
 @app.route('/data/industry/pig/single/<index_name>', methods=['GET'])
 def getSinglePig(index_name):
-    d = pd.date_range(start='20050101', end=datetime.datetime.now().strftime('%Y%m%d'))
+    d = pd.date_range(start=Const.START, end=datetime.datetime.now().strftime('%Y%m%d'))
 
     df = pd.read_excel(os.path.join(Settings.data_url, 'industry', 'pig.xls'))
     # df.index = df['Date']

@@ -4,10 +4,9 @@
 """
 @author: zhangmeng
 @contact: arws@qq.com
-@file: exchange.py
-@time: 2018/10/17 15:02
+@file: capitalflow.py
+@time: 2018/11/5 13:15
 """
-
 import os
 
 import datetime
@@ -20,20 +19,20 @@ from ...app import app
 from DataApi.settings import Settings
 
 
-@app.route('/data/financialmarket/exchange/name', methods=['GET'])
-def getExchangeName():
+@app.route('/data/macro/capitalflow/name', methods=['GET'])
+def getCapitalFlowName():
     data = []
-    df = pd.read_excel(os.path.join(Settings.data_url, 'financialmarket', 'exchange.xls'))
+    df = pd.read_excel(os.path.join(Settings.data_url, 'macro', 'capitalflow.xls'))
     for col in df.columns.values:
         data.append({'value': col, 'label': col})
-    return jsonify({'data': data, 'Category': '中国金融市场', 'SubCategory': '外汇'})
+    return jsonify({'data': data, 'Category': '国内宏观', 'SubCategory': '资本流动'})
 
 
-@app.route('/data/financialmarket/exchange/single/<name>', methods=['GET'])
-def getSingleExchange(name):
+@app.route('/data/macro/capitalflow/single/<name>', methods=['GET'])
+def getSingleCapitalFlow(name):
     d = pd.date_range(start=Const.START, end=datetime.datetime.now().strftime('%Y%m%d'))
 
-    df = pd.read_excel(os.path.join(Settings.data_url, 'financialmarket', 'exchange.xls'))
+    df = pd.read_excel(os.path.join(Settings.data_url, 'macro', 'capitalflow.xls'))
     # df.index = df['Date']
     df = df.reindex(d)
 
@@ -42,6 +41,5 @@ def getSingleExchange(name):
 
     # del df['Date']
     return jsonify({'name': name, 'x': [s.strftime('%Y%m%d') for s in df.index], 'y': [round(x, 4) for x in df[name].tolist()]})
-
 if __name__ == '__main__':
     pass

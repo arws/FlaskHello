@@ -20,6 +20,7 @@ from .views.macro import internationaltrade
 from .views.macro import investment
 from .views.macro import money
 from .views.macro import publicfinance
+from .views.macro import capitalflow
 
 from .views.macro.america import consume
 from .views.macro.america import gross
@@ -49,6 +50,9 @@ from .views.industry import newenergymaterial
 from .views.industry import pig
 from .views.industry import realestate
 from .views.industry import steel
+from .views.industry import metal
+from .views.industry import smallmetal
+from .views.industry import buildmaterial
 
 from .views.industry.chem import agrichem
 from .views.industry.chem import blast

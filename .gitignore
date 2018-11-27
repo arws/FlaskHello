@@ -6,3 +6,6 @@ helloEnv/
 .idea/misc.xml
 .idea/FlaskHello.iml
 .idea/
+*.pyc
+data/
+data_bak/

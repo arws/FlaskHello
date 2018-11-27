@@ -14,6 +14,7 @@ import pandas as pd
 
 from flask import jsonify
 
+from DataApi.Util import Const
 from DataApi.app import app
 from DataApi.settings import Settings
 
@@ -29,7 +30,7 @@ def getAgrichemName():
 
 @app.route('/data/industry/chem/agrichem/single/<index_name>', methods=['GET'])
 def getSingleAgrichem(index_name):
-    d = pd.date_range(start='20050101', end=datetime.datetime.now().strftime('%Y%m%d'))
+    d = pd.date_range(start=Const.START, end=datetime.datetime.now().strftime('%Y%m%d'))
 
     df = pd.read_excel(os.path.join(Settings.data_url, 'industry/chem', 'agrichem.xls'))
     # df.index = df['Date']

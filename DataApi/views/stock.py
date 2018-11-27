@@ -13,6 +13,7 @@ import datetime
 import pandas as pd
 from flask import jsonify
 
+from DataApi.Util import Const
 from ..Util.StockUtil import StockUtil
 from ..app import app
 
@@ -32,7 +33,7 @@ def getStockName():
 
 @app.route('/data/stock/single/<code>', methods=['GET'])
 def getStockData(code):
-    d = pd.date_range(start='19890101', end=datetime.datetime.now().strftime('%Y%m%d'))
+    d = pd.date_range(start=Const.START, end=datetime.datetime.now().strftime('%Y%m%d'))
 
     file_name = os.path.join(Settings.stock_daybar_url, code + '.csv')
     df = pd.read_csv(file_name, index_col=['Date'], usecols=['Date', 'Close'], parse_dates=True)
@@ -41,7 +42,7 @@ def getStockData(code):
         divi = pd.read_csv(os.path.join(Settings.stock_dividend_url, code + '.csv'), index_col=['ExdiviDate'], usecols=['ExdiviDate', 'RatioAdjustingFactor'], parse_dates=True)
         divi = divi.reindex(d)
         df['divi'] = divi['RatioAdjustingFactor']
-        df = df['20050101': datetime.datetime.now().strftime('%Y%m%d')]
+        df = df[Const.START: datetime.datetime.now().strftime('%Y%m%d')]
     except Exception:
         df['divi'] = 1
     df['adj_price'] = df['Close'] * df['divi']
