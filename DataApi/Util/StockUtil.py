@@ -24,7 +24,7 @@ class StockUtil(object):
         try:
             return cls.d[code]
         except KeyError:
-            code
+            return code
 
 
 if __name__ == '__main__':
